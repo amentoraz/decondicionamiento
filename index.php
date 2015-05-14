@@ -11,13 +11,17 @@
  * Time: 10:46
  */
 
-  include("class/parsing/cParser.php");
-  include ("class/cDatabase.php");
-  include ("class/cPintarPantalla.php");
-  include ("class/cCargaBBDD.php");
+  include_once ("class/parsing/cParser.php");
+  include_once ("class/cDatabase.php");
+  include_once ("class/cPintarPantalla.php");
+  include_once ("class/cCargaBBDD.php");
 
-  include ("class/cAventuraLocalizacion.php");
-  include ("class/cAventuraJugador.php");
+  include_once ("class/views/cInfoView.php");
+
+  include_once ("class/cInfoLocalWrapper.php");
+  include_once ("class/cAventuraLocalizacion.php");
+  include_once ("class/cAventuraJugador.php");
+  include_once ("class/cAventuraSalidas.php");
 
 
   // Inicializamos la base de datos
@@ -37,7 +41,7 @@
   }
 
   ?>
-    <p>éeeé
+    <p>
     <form method="post">
         <input type="hidden" name="cargarBBDD" value="1">
         <input type="submit" value="Recargar BBDD">
@@ -48,36 +52,73 @@
 
 
 
-  // Escribimos la propia acción
-  echo ("<b>".$_REQUEST['frase']."</b>");
-
-  // Vamos a parsear la accion realizada
-  if (isset($_REQUEST['ejecutar_accion']))
-  {
-      $oParser = new cParser();
-      $oParser->ParsearOracion($_REQUEST['frase']);
-  }
-
 
   // Sacamos la info del jugador
   $oAventuraJugador = new cAventuraJugador($objectMySQL);
-  $arrayJugador = $oAventuraJugador->GetDatosJugador(1); // A PELO!!!
-print_r($arrayJugador);
+  $oAventuraJugador->SetIdJugador(1); // TODO ESTO ESTA A PELO!!!
+  $arrayJugador = $oAventuraJugador->GetDatosJugador();
+
+  // TODO no habría que incrementar turno cuando se pide ayuda (y quiza tampoco cuando el sistema no entiende el comando)
+  $arrayJugador['turno']++;  // Para que cuadre en pantalla y ahora la grabar
+  $oAventuraJugador->ActualizarTurno($arrayJugador['turno']);
 
 
-  // TODO : mostrar la descripción del lugar [[[[MONTAR UN DESCRIPCIONWRAPPER PARA TODOS ESTOS]]]]
-  $oAventuraLocalizacion = new cAventuraLocalizacion($objectMySQL);
-  $oAventuraLocalizacion->SetIdJugador($arrayJugador['id']);
-  $oAventuraLocalizacion->SetIdInstanciaLocalizacion($arrayJugador['idInstanciaLocalizacion']);
-  $descripcion = $oAventuraLocalizacion->GetDescription();
-  echo ("<p>".$descripcion."</p>");
+
+  echo ("<p style='color: #00fd00'>".$arrayJugador['nombre']." - <i>Turno ".$arrayJugador['turno']."</i></p>");
+
+  // Escribimos la propia acción
+  echo ("<b>>> ".$_REQUEST['frase']."</b>");
+
+  echo ("<br/>");
+  echo ("<br/>");
+
+
+
+
+  // Vamos a parsear la accion realizada. Esto tiene que ir antes de nada porque puede cambiar condiciones como
+  // la localizacion
+
+  if (isset($_REQUEST['ejecutar_accion']))
+  {
+      $oParser = new cParser($objectMySQL);
+      $oParser->SetIdInstanciaLocalizacion($arrayJugador['idInstanciaLocalizacion']);
+      $oParser->SetIdJugador($arrayJugador['id']); // idJugador
+      $oParser->ParsearOracion($_REQUEST['frase']);
+        // Por si cambia la localizacion
+      $arrayJugador = $oAventuraJugador->GetDatosJugador();
+  }
+
+
+  // Vamos a sacar con el wrapper toda la información de la localizacion: datos, salidas y objetos presentes
+  $oInfoLocalWrapper = new cInfoLocalWrapper($objectMySQL);
+  $oInfoLocalWrapper->SetIdJugador($arrayJugador['id']);
+  $oInfoLocalWrapper->SetIdInstanciaLocalizacion($arrayJugador['idInstanciaLocalizacion']);
+  $arrayLugar = $oInfoLocalWrapper->GetDatosBaseLugar();
+  //var_dump($arrayLugar);
+
+
+
+
+
+
+
+  // Pintamos la descripción TODO ESTO VA A UNA CLASE QUE COMPRUEBE TAMBIEN EVENTOS
+  echo $arrayLugar['infoBase']['descripcion'];
 
 
 
   // TODO : mostrar los objetos que hay en el lugar
 
-  // TODO : mostrar las salidas
 
+  // Pintamos las salidas
+  $oInfoView = new cInfoView();
+  $oInfoView->PrintExits($arrayLugar);
+
+
+
+
+
+  // TODO - que no te deja meter una orden vacía (javascript)
 
 ?>
 

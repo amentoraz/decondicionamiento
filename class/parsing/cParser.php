@@ -11,6 +11,13 @@ include_once('iParserVerbal.php');
 
 class cParser {
 
+    // Private variables
+
+    private $databaseLink;
+    private $tipoLog;
+
+    private $idInstanciaLocalizacion;
+    private $idJugador;
 
 
     private $arrayErroneo = array(
@@ -30,6 +37,22 @@ class cParser {
         ', despues ',
         ' y ',
     );
+
+
+    // Constructor and Set methods
+
+    public function __construct($databaseLink, $tipoLog = 'standard')
+    {
+        $this->databaseLink = $databaseLink;
+        $this->tipoLog = $tipoLog;
+    }
+
+    public function SetIdJugador($value) { $this->idJugador = $value; }
+    public function SetIdInstanciaLocalizacion($value) { $this->idInstanciaLocalizacion = $value; }
+
+
+
+
 
     // Con este método vamos a buscar nexos conjuntivos + partícular temporales como "y", "y luego"
 
@@ -79,7 +102,9 @@ class cParser {
         }
 
         // Aquí van a llegar oraciones individuales
-        $oParserFactoriaVerbo = new cParserFactoriaVerbo();
+        $oParserFactoriaVerbo = new cParserFactoriaVerbo($this->databaseLink);
+        $oParserFactoriaVerbo->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
+        $oParserFactoriaVerbo->SetIdJugador($this->idJugador);
         $oParserVerbal = $oParserFactoriaVerbo->Crear($oracion);
 
         if (isset($oParserVerbal)) {

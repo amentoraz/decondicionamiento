@@ -38,7 +38,7 @@ Class cDatabase {
 
     public function Configure() {
         $this->hostbd = "127.0.0.1";
-        $this->basedatos = "onethrto_decondicionamiento";
+        $this->basedatos = "onethrto_decondicionamiento_game";
         $this->user_read = "root";
         $this->password_read = "";
         $this->user_write = "root";

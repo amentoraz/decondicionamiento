@@ -8,7 +8,10 @@
 
 interface iParserVerbal {
 
+
     public function Procesar($oracion);
 
+    public function SetIdJugador($value);
+    public function SetIdInstanciaLocalizacion($value);
 
 } 

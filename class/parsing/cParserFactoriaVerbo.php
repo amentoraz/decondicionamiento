@@ -18,7 +18,13 @@ include_once('cParserVerbalMovimiento.php');
 
 class cParserFactoriaVerbo {
 
+    // Private variables
 
+    private $databaseLink;
+    private $tipoLog;
+
+    private $idInstanciaLocalizacion;
+    private $idJugador;
 
     private $verboArray = array(
         'COGER ',
@@ -43,6 +49,19 @@ class cParserFactoriaVerbo {
     );
 
 
+    // Constructor and Set methods
+
+    public function __construct($databaseLink, $tipoLog = 'standard')
+    {
+        $this->databaseLink = $databaseLink;
+        $this->tipoLog = $tipoLog;
+    }
+
+    public function SetIdJugador($value) { $this->idJugador = $value; }
+    public function SetIdInstanciaLocalizacion($value) { $this->idInstanciaLocalizacion = $value; }
+
+
+
     //  Esto solo necesita un método, que es el de creación. Este localiza un verbo y determina entonces a qué
     // implementación se debe enviar la frase
 
@@ -58,7 +77,9 @@ class cParserFactoriaVerbo {
         {
             $lugar = strpos($oracion, $this->salidasArray[$j]);
             if ($lugar !== false) {
-                $oParserVerbal = new cParserVerbalMovimiento();
+                $oParserVerbal = new cParserVerbalMovimiento($this->databaseLink);
+                $oParserVerbal->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
+                $oParserVerbal->SetIdJugador($this->idJugador);
                 return $oParserVerbal;
             }
         }
@@ -71,8 +92,9 @@ class cParserFactoriaVerbo {
             if ($lugar !== false) {
                 // Montamos el nombre de la implementacion de iParserVerbal como cParserVerboXXXXX
                 $nombreClase = "cParserVerbal" . trim($this->verboArray[$i]);
-                $oParserVerbal = new $nombreClase();
-
+                $oParserVerbal = new $nombreClase($this->databaseLink);
+                $oParserVerbal->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
+                $oParserVerbal->SetIdJugador($this->idJugador);
             }
         }
 

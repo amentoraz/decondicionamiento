@@ -4,6 +4,11 @@ include_once('iParserVerbal.php');
 
 class cParserVerbalAYUDA implements iParserVerbal {
 
+    private $idInstanciaLocalizacion;
+    private $idJugador;
+    public function SetIdJugador($value) { $this->idJugador = $value; }
+    public function SetIdInstanciaLocalizacion($value) { $this->idInstanciaLocalizacion = $value; }
+
 
     private function PintarMensajeSalidas()
     {
@@ -13,7 +18,7 @@ class cParserVerbalAYUDA implements iParserVerbal {
 
     private function PintarMensajeAyuda()
     {
-        $msg = ("Puedes desplazarte entre localizaciones escribiendo simplemente la direcci\'on en que te desplazas (p.ej norte, sur, arriba, entrar). Por lo demás, ");
+        $msg = ("Puedes desplazarte entre localizaciones escribiendo simplemente la dirección en que te desplazas (p.ej norte, sur, arriba, entrar). Por lo demás, ");
         $msg .= ("intenta escribir oraciones sencillas formadas por un verbo en infinitivo y un objeto directo. Por ejemplo, \"coger taza\" o \"examinar pantalla\".");
         $msg .= (" Aunque hay diversidad de verbos que puede funcionar para distintas acciones, hay algunos como \"coger\", \"dejar\", \"examinar\", \"salidas\" o \"usar\" que te pueden");
         $msg .= (" resultar útiles muy a menudo. También puedes escribir \"ayuda [tema]\" si quieres consultar algún tema en particular.");

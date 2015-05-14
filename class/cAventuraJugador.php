@@ -17,17 +17,40 @@ class cAventuraJugador {
         $this->tipoLog = $tipoLog;
     }
 
+    public function SetIdJugador($value) { $this->idJugador = $value; }
 
-    public function GetDatosJugador($idJugador)
+    public function GetDatosJugador()
     {
         $sql = "SELECT * FROM aventura_jugador
 				WHERE id = ?
 				LIMIT 1
 				";
         $stmt = $this->databaseLink->PrepareStatementRead($sql);
-        $stmt->execute(array($idJugador));
+        $stmt->execute(array($this->idJugador));
         $result = $stmt->fetchAll();
         return $result[0];
+    }
+
+
+    public function ActualizarTurno($turnoActual)
+    {
+
+        $sql = "UPDATE aventura_jugador
+                SET turno = ?
+                WHERE id = ?
+                ";
+        $stmt = $this->databaseLink->PrepareStatementWrite($sql);
+        $stmt->execute(array($turnoActual, $this->idJugador));
+    }
+
+    public function ActualizarLocalizacion($idInstanciaLocalizacion)
+    {
+        $sql = "UPDATE aventura_jugador
+                SET idInstanciaLocalizacion = ?
+                WHERE id = ?
+                ";
+        $stmt = $this->databaseLink->PrepareStatementWrite($sql);
+        $stmt->execute(array($idInstanciaLocalizacion, $this->idJugador));
     }
 
 } 
