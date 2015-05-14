@@ -4,16 +4,15 @@
 </head>
 <body style="color: #fe7777; background-color: #000000;">
 <?php
-/**
- * Created by PhpStorm.
- * User: pablo
- * Date: 13/05/15
- * Time: 10:46
+
+/*
+ * Indice temporal en el que jugar antes de montar la pantalla real, que es parte TODO
+ *
  */
 
   include_once ("class/parsing/cParser.php");
   include_once ("class/cDatabase.php");
-  include_once ("class/cPintarPantalla.php");
+  include_once("class/views/cPintarPantalla.php");
   include_once ("class/cCargaBBDD.php");
 
   include_once ("class/views/cInfoView.php");
@@ -31,6 +30,8 @@
   $sql = "SET NAMES utf8";
   $stmt = $objectMySQL->PrepareStatementWrite($sql);
   $stmt->execute();
+
+
 
 
   // Vamos a ver si nos han pedido recargar la BBDD
@@ -67,10 +68,10 @@
   echo ("<p style='color: #00fd00'>".$arrayJugador['nombre']." - <i>Turno ".$arrayJugador['turno']."</i></p>");
 
   // Escribimos la propia acción
-  echo ("<b>>> ".$_REQUEST['frase']."</b>");
-
-  echo ("<br/>");
-  echo ("<br/>");
+  if (isset($_REQUEST['frase']))
+  {
+      cPintarPantalla::PintarAccionAnterior("<b>>> ".$_REQUEST['frase']."</b>");
+  }
 
 
 

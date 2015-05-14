@@ -13,7 +13,7 @@ class cParserVerbalAYUDA implements iParserVerbal {
     private function PintarMensajeSalidas()
     {
         $msg = ("Si escribes \"salidas\" sin más, se te informará de las posibles direcciones que puedes tomar desde tu localización actual.");
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
     private function PintarMensajeAyuda()
@@ -23,7 +23,7 @@ class cParserVerbalAYUDA implements iParserVerbal {
         $msg .= (" Aunque hay diversidad de verbos que puede funcionar para distintas acciones, hay algunos como \"coger\", \"dejar\", \"examinar\", \"salidas\" o \"usar\" que te pueden");
         $msg .= (" resultar útiles muy a menudo. También puedes escribir \"ayuda [tema]\" si quieres consultar algún tema en particular.");
         $msg .= (" Además, puedes encadenar acciones mediante oraciones conjuntivas (ver \"ayuda conjuntivas\") ");
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
 
@@ -31,26 +31,26 @@ class cParserVerbalAYUDA implements iParserVerbal {
     {
         $msg = ("La acción \"coger\" te permite tomar un objeto, que salvo casos excepcionales pasará a formar parte de tu inventario. ");
         $msg .= "Si quieres ver tus posesiones, puedes usar el comando \"inventario\" a secas. ";
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
     private function PintarMensajeDejar()
     {
         $msg = ("La acción \"dejar\" te permite dejar un objeto que poseas en la habitación en la que te encuentres. ");
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
     private function PintarMensajeInventario()
     {
         $msg = ("El comando \"inventario\" te mostrará un listado de lo que llevas contigo en este momento. ");
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
     private function PintarMensajeExaminar()
     {
         $msg = "El verbo \"examinar\" sirve para obtener detalles específicos de un escenario o de un objeto que se encuentre en él o que tú poseas. Sirve además ";
         $msg .= "como sinónimo del verbo leer. Así, \"examinar libro\" o \"examinar botas\" te darán detalles acerca de ambos.";
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
 
     private function PintarMensajeConjuntivas()
@@ -59,8 +59,15 @@ class cParserVerbalAYUDA implements iParserVerbal {
         $msg .= "u otras variantes temporales como \"después\" o \"luego\". Así por ejemplo, puedes indicar que quieres \"dejar silla y sentarme\",  ";
         $msg .= "o \"dejar silla y después sentarme\", ";
         $msg .= "con lo que realizarás ambas acciones una detrás de otra como si hubieras escrito por separado ambas oraciones.";
-        cPintarPantalla::Pintar($msg);
+        return $msg;
     }
+
+    private function PintarNoReconocido()
+    {
+        $msg = "No existe ayuda específica acerca de esto";
+        return $msg;
+    }
+
 
 
     public function Procesar($oracion)
@@ -70,7 +77,8 @@ class cParserVerbalAYUDA implements iParserVerbal {
         if (strtoupper($oracion) == 'AYUDA')
         {
             // Esto es que ha pedido ayuda sin más
-            $this->PintarMensajeAyuda();
+            $msg = $this->PintarMensajeAyuda();
+            cPintarPantalla::PintarTextoAyuda($msg);
             return true;
         } else {
             // Vamos a ver si está pidiendo ayuda sobre algo en concreto
@@ -80,25 +88,28 @@ class cParserVerbalAYUDA implements iParserVerbal {
                 $predicado = strtoupper($predicado);
                 switch($predicado)
                 {
-                    case 'EXAMINAR' :   echo ("[EXAM]");
-                                        $this->PintarMensajeExaminar();
+                    case 'EXAMINAR' :
+                                        $msg = $this->PintarMensajeExaminar();
                                         break;
                     case 'CONJUNCION' :
                     case 'CONJUNCIONES' :
                     case 'CONJUNCIóN' :
                     case 'CONJUNCIÓN' :
-                    case 'CONJUNTIVAS' : $this->PintarMensajeConjuntivas();
+                    case 'CONJUNTIVAS' : $msg = $this->PintarMensajeConjuntivas();
                                         break;
 
-                    case 'COGER' :      $this->PintarMensajeCoger();
+                    case 'COGER' :      $msg = $this->PintarMensajeCoger();
                                         break;
-                    case 'DEJAR' :      $this->PintarMensajeDejar();
+                    case 'DEJAR' :      $msg = $this->PintarMensajeDejar();
                                         break;
-                    case 'INVENTARIO' : $this->PintarMensajeInventario();
+                    case 'INVENTARIO' : $msg = $this->PintarMensajeInventario();
                                         break;
-                    case 'SALIDAS' :    $this->PintarMensajeSalidas();
+                    case 'SALIDAS' :    $msg = $this->PintarMensajeSalidas();
+                                        break;
+                    default :           $msg = $this->PintarNoReconocido();
                                         break;
                 }
+                cPintarPantalla::PintarTextoAyuda($msg);
             }
         }
 

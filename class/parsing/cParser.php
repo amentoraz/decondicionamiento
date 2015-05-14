@@ -111,7 +111,7 @@ class cParser {
             $oParserVerbal->Procesar($oracion);
         } else {
             $rand = rand( 0, count(($this->arrayErroneo)) - 1 );
-            cPintarPantalla::Pintar($this->arrayErroneo[$rand]);
+            cPintarPantalla::PintarRespuestaAccion($this->arrayErroneo[$rand]);
         }
 
 
