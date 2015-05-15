@@ -2,6 +2,12 @@ CHANGELOG
 ---------
 
 
+16/05/2015
+
+* Nuevo campo+mecanismo que describe un objeto en una localización. "tiza que emite un extraño fulgor" en vez de "tiza" p.ej
+
+* Clase de autoload para que cargue lo que cuelga de class/, primero los interfaces y luego las clases
+
 
 15/05/2015
 

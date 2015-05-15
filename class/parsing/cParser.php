@@ -6,9 +6,6 @@
  * Time: 10:51
  */
 
-include_once('cParserFactoriaVerbo.php');
-include_once('iParserVerbal.php');
-
 class cParser {
 
     // Private variables

@@ -1,7 +1,5 @@
 <?php
 
-include_once('cFileIO.php');
-
 class cCargaBBDD {
 
     private $databaseLink;

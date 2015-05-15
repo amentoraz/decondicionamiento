@@ -7,14 +7,7 @@
  */
 
 
-// TODO que esto se cargue solo
-include_once('cParserVerbalCOGER.php');
-include_once('cParserVerbalDEJAR.php');
-include_once('cParserVerbalEXAMINAR.php');
-include_once('cParserVerbalAYUDA.php');
-include_once('cParserVerbalINVENTARIO.php');
-include_once('cParserVerbalSALIDAS.php');
-include_once('cParserVerbalMovimiento.php');
+
 
 class cParserFactoriaVerbo {
 

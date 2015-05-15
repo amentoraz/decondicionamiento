@@ -1,7 +1,5 @@
 <?php
 
-include_once('iParserVerbal.php');
-
 class cParserVerbalAYUDA implements iParserVerbal {
 
     private $idInstanciaLocalizacion;

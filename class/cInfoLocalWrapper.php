@@ -6,11 +6,6 @@
  *
  */
 
-// Todo esto se debería sustituir por un sistema que lo cargue todo dinámicamente, claro
-include_once ("class/cAventuraLocalizacion.php");
-include_once ("class/cAventuraJugador.php");
-include_once ("class/cAventuraSalidas.php");
-include_once ("class/cAventuraObjeto.php");
 
 class cInfoLocalWrapper {
 

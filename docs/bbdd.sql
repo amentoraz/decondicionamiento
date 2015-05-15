@@ -204,6 +204,7 @@ CREATE TABLE aventura_objeto
 (
 id int auto_increment NOT NULL,
 referencia varchar(100),
+descripcion_en_localizacion text,
 descripcion text,
 idLocalizacion int,
 visible tinyint,
@@ -213,8 +214,8 @@ femenino tinyint,
 PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO aventura_objeto (id, referencia, descripcion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (1, 'tiza', 'Una extraña tiza que parece emitir una suave luz propia.', 1, 1, null, null, 1);
-INSERT INTO aventura_objeto (id, referencia, descripcion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (2, 'red herring', 'Un objeto particularmente inútil.', 1, 1, null, null, 0);
+INSERT INTO aventura_objeto (id, referencia, descripcion, descripcion_en_localizacion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (1, 'tiza', 'Una extraña tiza que parece emitir una suave luz propia.', 'tiza que parece emitir luz', 1, 1, null, null, 1);
+INSERT INTO aventura_objeto (id, referencia, descripcion, descripcion_en_localizacion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (2, 'red herring', 'Un objeto particularmente inútil.', 'red herring, un tipo de pescado', 1, 1, 'pescado', null, 0);
 
 
 DROP TABLE IF EXISTS `aventura_instancia_objeto`;
@@ -245,6 +246,8 @@ email varchar(255),
 sexo int,
 turno int,
 idInstanciaLocalizacion int,
+puntos int,
+password varchar(255),
 PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

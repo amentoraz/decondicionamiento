@@ -10,18 +10,7 @@
  *
  */
 
-  include_once ("class/parsing/cParser.php");
-  include_once ("class/cDatabase.php");
-  include_once("class/views/cPintarPantalla.php");
-  include_once ("class/cCargaBBDD.php");
-
-  include_once ("class/views/cInfoView.php");
-
-  include_once ("class/cInfoLocalWrapper.php");
-  include_once ("class/cAventuraLocalizacion.php");
-  include_once ("class/cAventuraJugador.php");
-  include_once ("class/cAventuraSalidas.php");
-  include_once('class/cAventuraObjeto.php');
+  include_once("init/classAutoload.php");
 
   // Inicializamos la base de datos
   $objectMySQL = cDatabase::GetInstance();
@@ -110,13 +99,13 @@
       $textoGenero =  ($arrayLugar['objetos'][$i]['femenino'] == 1) ? "una" : "un";
       if ($i == 0)
       {
-          cPintarPantalla::Pintar(" Puedes ver además ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+          cPintarPantalla::Pintar(" Puedes ver además ".$textoGenero." ".$arrayLugar['objetos'][$i]['descripcion_en_localizacion']);
       } else {
           if (($i+1) < count($arrayLugar['objetos']))
           {
-              cPintarPantalla::Pintar(", ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+              cPintarPantalla::Pintar(", ".$textoGenero." ".$arrayLugar['objetos'][$i]['descripcion_en_localizacion']);
           } else {
-              cPintarPantalla::Pintar(" y ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+              cPintarPantalla::Pintar(" y ".$textoGenero." ".$arrayLugar['objetos'][$i]['descripcion_en_localizacion']);
           }
       }
   }

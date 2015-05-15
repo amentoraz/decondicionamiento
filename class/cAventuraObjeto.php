@@ -24,7 +24,7 @@ class cAventuraObjeto {
 
     public function GetObjetosLocalizacion()
     {
-        $sql = "SELECT aio.*, ao.femenino, ao.referencia
+        $sql = "SELECT aio.*, ao.femenino, ao.referencia, ao.descripcion_en_localizacion
                 FROM aventura_instancia_objeto aio, aventura_objeto ao
 				WHERE aio.idLocalizacion = ?
 				AND aio.idJugador = ?

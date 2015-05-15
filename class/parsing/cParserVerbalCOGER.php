@@ -1,7 +1,5 @@
 <?php
 
-include_once('iParserVerbal.php');
-
 class cParserVerbalCOGER implements iParserVerbal {
 
     // Private variables
