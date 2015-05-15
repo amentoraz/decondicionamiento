@@ -4,9 +4,9 @@ class cPintarPantalla {
 
     public static function Pintar($mensaje) {
 
-        echo ("<p>");
+        //echo ("<p>");
         echo $mensaje;
-        echo ("</p>");
+        //echo ("</p>");
     }
 
 

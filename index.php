@@ -21,7 +21,7 @@
   include_once ("class/cAventuraLocalizacion.php");
   include_once ("class/cAventuraJugador.php");
   include_once ("class/cAventuraSalidas.php");
-
+  include_once('class/cAventuraObjeto.php');
 
   // Inicializamos la base de datos
   $objectMySQL = cDatabase::GetInstance();
@@ -100,15 +100,27 @@
 
 
 
-
-
-
   // Pintamos la descripción TODO ESTO VA A UNA CLASE QUE COMPRUEBE TAMBIEN EVENTOS
-  echo $arrayLugar['infoBase']['descripcion'];
+  echo "<p>".$arrayLugar['infoBase']['descripcion']."</p>";
 
 
-
-  // TODO : mostrar los objetos que hay en el lugar
+  // TODO : sacar esto a una clase
+  for ($i = 0; $i < count($arrayLugar['objetos']); $i++)
+  {
+      $textoGenero =  ($arrayLugar['objetos'][$i]['femenino'] == 1) ? "una" : "un";
+      if ($i == 0)
+      {
+          cPintarPantalla::Pintar(" Puedes ver además ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+      } else {
+          if (($i+1) < count($arrayLugar['objetos']))
+          {
+              cPintarPantalla::Pintar(", ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+          } else {
+              cPintarPantalla::Pintar(" y ".$textoGenero." ".$arrayLugar['objetos'][$i]['referencia']);
+          }
+      }
+  }
+  if ($i > 0) { echo ("."); };
 
 
   // Pintamos las salidas

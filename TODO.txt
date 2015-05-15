@@ -1,10 +1,19 @@
-- Que se pueden coger y dejar objetos
 
-- Que se pueda mirar el inventario, o revampear para que muestre las cosas
+
+- Sacar los arrays de verbos y sinonimos de cParserFactoriaVerbo a un fichero externo de configuración o algo
+
+- Que al coger objetos tengas que acertar el género xD
+
+- Sistema para meter mensajes específicos al coger objetos, dentro de su definicion, "Al coger el teléfono lo notas pegajoso al tacto".
+Tendría que ser variable, que solo saliera una vez, que dependiera de su estado... y para esto tenemos que definir estados y tal.
 
 - Mejorar un poquito el Index, meter las cosas en un cuadro, algo así
 
 - Poner la zona de texto en un ajax que se vaya invocando y que siempre genere texto y deje un nuevo <div id="escribe_aqui"> en el que pintar
+
+- "Ver" o "mirar" que repita la descripción de la localización
+
+- Añadir a la ayuda lo de repetir la descripción
 
 - Determinar cómo va a ir lo de los laberintos. Creo que el esLaberinto debería determinar básicamente una unión aleatoria con la siguiente al implementar,
  de las 4 direcciones cardinales. Pero seguiría habiendo una correspondencia 1:1 entre instancias y originales

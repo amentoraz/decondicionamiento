@@ -1,0 +1,30 @@
+CHANGELOG
+---------
+
+
+
+15/05/2015
+
+* Ver el contenido de tu inventario
+
+* Coger objetos
+
+* Sistema básico de sinónimos en el Parser, así como versiones acortadas de acciones:  "i" para ver el inventario y movimiento en los puntos cardinales con n/s/e/o
+
+* Clase de cAventuraObjeto y mostrado de objetos en pantalla
+
+* Que se pueden dejar objetos
+
+
+14/05/2015
+
+* Movimiento entre localizaciones (norte, este, sur, etc)
+
+* Sistema de coherencia de salidas/localizaciones e instanciaciones
+
+
+<= 13/05/2015
+
+* Estructura básica de parseo y de las clases a utilizar
+
+* Estructura básica de la BBDD

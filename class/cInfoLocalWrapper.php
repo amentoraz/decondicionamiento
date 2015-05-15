@@ -10,6 +10,7 @@
 include_once ("class/cAventuraLocalizacion.php");
 include_once ("class/cAventuraJugador.php");
 include_once ("class/cAventuraSalidas.php");
+include_once ("class/cAventuraObjeto.php");
 
 class cInfoLocalWrapper {
 
@@ -44,8 +45,14 @@ class cInfoLocalWrapper {
         $oAventuraSalidas->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
         $arraySalidas = $oAventuraSalidas->GetSalidasVisiblesLocalizacion();
 
+        $oAventuraObjeto = new cAventuraObjeto($this->databaseLink);
+        $oAventuraObjeto->SetIdJugador($this->idJugador);
+        $oAventuraObjeto->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
+        $arrayObjetos = $oAventuraObjeto->GetObjetosLocalizacion();
+
         $arrayFinal['infoBase'] = $arrayDescripcion;
         $arrayFinal['salidas'] = $arraySalidas;
+        $arrayFinal['objetos'] = $arrayObjetos;
 
         return $arrayFinal;
 

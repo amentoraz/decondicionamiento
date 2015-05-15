@@ -2,6 +2,7 @@
 
 include_once('iParserVerbal.php');
 
+
 class cParserVerbalINVENTARIO implements iParserVerbal {
 
 
@@ -28,8 +29,31 @@ class cParserVerbalINVENTARIO implements iParserVerbal {
     public function Procesar($oracion)
     {
 
-        echo ("[PROCESANDO INVENTARIO]");
+        $oAventuraObjeto = new cAventuraObjeto($this->databaseLink);
+        $oAventuraObjeto->SetIdJugador($this->idJugador);
+        $objetos = $oAventuraObjeto->MostrarInventario();
 
+        // TODO : sacar esto a una clase
+        for ($i = 0; $i < count($objetos); $i++)
+        {
+            $textoGenero =  ($objetos[$i]['femenino'] == 1) ? "una" : "un";
+            if ($i == 0)
+            {
+                $texto = (" Tienes ".$textoGenero." ".$objetos[$i]['referencia']);
+            } else {
+                if (($i+1) < count($objetos))
+                {
+                    $texto = $texto.(", ".$textoGenero." ".$objetos[$i]['referencia']);
+                } else {
+                    $texto = $texto.(" y ".$textoGenero." ".$objetos[$i]['referencia']);
+                }
+            }
+        }
+        if ($i > 0) { $texto .= ("."); };
+
+        cPintarPantalla::PintarRespuestaAccion($texto);
+
+//print_r($resultado);
 
 
     }

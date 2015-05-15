@@ -209,8 +209,12 @@ idLocalizacion int,
 visible tinyint,
 alias1 varchar(255),
 alias2 varchar(255),
+femenino tinyint,
 PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO aventura_objeto (id, referencia, descripcion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (1, 'tiza', 'Una extraña tiza que parece emitir una suave luz propia.', 1, 1, null, null, 1);
+INSERT INTO aventura_objeto (id, referencia, descripcion, idLocalizacion, visible, alias1, alias2, femenino) VALUES (2, 'red herring', 'Un objeto particularmente inútil.', 1, 1, null, null, 0);
 
 
 DROP TABLE IF EXISTS `aventura_instancia_objeto`;
@@ -225,6 +229,8 @@ visible tinyint,
 PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+INSERT INTO aventura_instancia_objeto (id, idObjeto, idJugador, idLocalizacion, visible) VALUES (1, 1, 1, 1, 1);
+INSERT INTO aventura_instancia_objeto (id, idObjeto, idJugador, idLocalizacion, visible) VALUES (2, 2, 1, 1, 1);
 
 
 -- -------------------------------------------- JUGADORES -------------------------------

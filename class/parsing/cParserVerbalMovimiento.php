@@ -65,55 +65,55 @@ class cParserVerbalMovimiento implements iParserVerbal {
 
         $oracion = strtoupper(trim($oracion));
 
-        if (strpos($oracion, "NORTE") !== false)
+        if ((strpos($oracion, "NORTE") !== false) || ($oracion == 'N'))
         {
             $result = $this->EjecutarMovimiento(1);
-            if ($result) { cPintarPantalla::Pintar("Vas al Norte.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Vas al Norte.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
-        if (strpos($oracion, "SUR") !== false)
+        if ((strpos($oracion, "SUR") !== false) || ($oracion == 'S'))
         {
             $result = $this->EjecutarMovimiento(3);
-            if ($result) { cPintarPantalla::Pintar("Vas al Sur.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Vas al Sur.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
-        if (strpos($oracion, "OESTE") !== false)
+        if ((strpos($oracion, "OESTE") !== false) || ($oracion == 'O'))
         {
             $result = $this->EjecutarMovimiento(4);
-            if ($result) { cPintarPantalla::Pintar("Vas al Oeste.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Vas al Oeste.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
-        if (strpos($oracion, "ESTE") !== false)
+        if ((strpos($oracion, "ESTE") !== false) || ($oracion == 'E'))
         {
             $result = $this->EjecutarMovimiento(2);
-            if ($result) { cPintarPantalla::Pintar("Vas al Este.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Vas al Este.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
         if (strpos($oracion, "ENTRAR") !== false)
         {
             $result = $this->EjecutarMovimiento(5);
-            if ($result) { cPintarPantalla::Pintar("Entras.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Entras.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
 
         if (strpos($oracion, "SALIR") !== false)
         {
             $result = $this->EjecutarMovimiento(6);
-            if ($result) { cPintarPantalla::Pintar("Sales.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Sales.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
 
         if (((strpos($oracion, "ARRIBA") !== false) || (strpos($oracion, "SUBIR")) !== false || (strpos($oracion, "SUBE")) !== false))
         {
             $result = $this->EjecutarMovimiento(7);
-            if ($result) { cPintarPantalla::Pintar("Subes.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Subes.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
 
         if (((strpos($oracion, "ABAJO") !== false) || (strpos($oracion, "BAJAR")) !== false || (strpos($oracion, "BAJA")) !== false))
         {
             $result = $this->EjecutarMovimiento(8);
-            if ($result) { cPintarPantalla::Pintar("Bajas.<br/>"); } else { cPintarPantalla::Pintar("No hay salida en esa dirección.<br/>"); }
+            if ($result) { cPintarPantalla::Pintar("Bajas.<br/>"); } else { cPintarPantalla::PintarRespuestaAccion("No hay salida en esa dirección.<br/>"); }
             return;
         }
 

@@ -39,6 +39,17 @@ class cParser {
     );
 
 
+    private $verboAliasArray = array(
+        array('TOMAR ',  'COGER '),
+        array('RECOGER ',  'COGER '),
+        array('ACOGER ',  'INVALIDO '),  // Esto es para que no malinterprete según qué cosas
+        array('ENCOGER ',  'INVALIDO '),
+        array('SOLTAR ',  'DEJAR '),
+    );
+
+
+
+
     // Constructor and Set methods
 
     public function __construct($databaseLink, $tipoLog = 'standard')
@@ -101,6 +112,25 @@ class cParser {
             return;
         }
 
+        // 1. Pasamos a mayúsculas
+        $oracion = strtoupper($oracion);
+
+        // 2. Acortados especiales
+        if (trim($oracion) == "O") { $oracion = "OESTE"; }
+        if (trim($oracion) == "E") { $oracion = "ESTE"; }
+        if (trim($oracion) == "N") { $oracion = "NORTE"; }
+        if (trim($oracion) == "S") { $oracion = "SUR"; }
+        if (trim($oracion) == "I") { $oracion = "INVENTARIO"; }
+
+        //  3. Dependiendo del verbo que localice como principal dentro de la frase, decidirá usar una u otra
+        // implementación del interfaz iParserVerbal
+        for ($i = 0; $i < count($this->verboAliasArray); $i++) {
+            $lugar = strpos($oracion, $this->verboAliasArray[$i][0]);
+            if ($lugar !== false) {
+                $oracion = str_replace($this->verboAliasArray[$i][0], $this->verboAliasArray[$i][1], $oracion);
+            }
+        }
+
         // Aquí van a llegar oraciones individuales
         $oParserFactoriaVerbo = new cParserFactoriaVerbo($this->databaseLink);
         $oParserFactoriaVerbo->SetIdInstanciaLocalizacion($this->idInstanciaLocalizacion);
@@ -108,7 +138,8 @@ class cParser {
         $oParserVerbal = $oParserFactoriaVerbo->Crear($oracion);
 
         if (isset($oParserVerbal)) {
-            $oParserVerbal->Procesar($oracion);
+            //$oParserVerbal->Procesar($oParserFactoriaVerbo->GetOracionfinal()); // En vez de $oracion, para que envíe el procesado
+            $oParserVerbal->Procesar($oracion); // En vez de $oracion, para que envíe el procesado
         } else {
             $rand = rand( 0, count(($this->arrayErroneo)) - 1 );
             cPintarPantalla::PintarRespuestaAccion($this->arrayErroneo[$rand]);

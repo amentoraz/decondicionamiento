@@ -22,9 +22,16 @@ class cParserFactoriaVerbo {
 
     private $databaseLink;
     private $tipoLog;
+    private $oracionFinal;
+
+    public function GetOracionFinal() { return $this->oracionFinal; }
+    public function SetOracionFinal($value) { $this->oracionFinal = $value; }
+
 
     private $idInstanciaLocalizacion;
     private $idJugador;
+
+
 
     private $verboArray = array(
         'COGER ',
@@ -68,8 +75,6 @@ class cParserFactoriaVerbo {
     public function Crear($oracion)
     {
 
-        // Pasamos ambos a mayúsculas
-        $oracion = strtoupper($oracion);
 
 
         // Primero vamos a ver si es una salida
@@ -84,8 +89,7 @@ class cParserFactoriaVerbo {
             }
         }
 
-        //  Dependiendo del verbo que localice como principal dentro de la frase, decidirá usar una u otra
-        // implementación del interfaz iParserVerbal
+
 
         for ($i = 0; $i < count($this->verboArray); $i++) {
             $lugar = strpos($oracion, $this->verboArray[$i]);
@@ -98,7 +102,7 @@ class cParserFactoriaVerbo {
             }
         }
 
-        if (isset($oParserVerbal)) { return $oParserVerbal; } else { return null; };
+        if (isset($oParserVerbal)) { $this->oracionFinal = $oracion; return $oParserVerbal; } else { return null; };
 
 
     }
